@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 
 public class Main {
-	// 
+	// TODO customize HTTP response for more practical
+	// TODO submit employee to database >> https://spring.io/guides/gs/accessing-data-mysql/
+	// TODO refactor code 
 	public static void main(String[] args) {
 		SpringApplication.run(Main.class, args);
 	}
