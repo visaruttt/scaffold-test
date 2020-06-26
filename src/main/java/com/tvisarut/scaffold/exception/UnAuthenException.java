@@ -1,4 +1,4 @@
-package com.tvisarut.scaffold;
+package com.tvisarut.scaffold.exception;
 
 public class UnAuthenException extends RuntimeException {
 

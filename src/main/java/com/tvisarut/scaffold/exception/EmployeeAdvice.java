@@ -1,4 +1,4 @@
-package com.tvisarut.scaffold;
+package com.tvisarut.scaffold.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class EmployeeExceptionAdvice {
+public class EmployeeAdvice {
 	@ResponseBody
-	@ExceptionHandler(EmployeeNotFoundException.class)
+	@ExceptionHandler(EmployeeNotFound.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	String EmployeeNotFound(EmployeeNotFoundException ex) {
+	String EmployeeNotFound(EmployeeNotFound ex) {
 		return ex.getMessage();
 	}
 	
