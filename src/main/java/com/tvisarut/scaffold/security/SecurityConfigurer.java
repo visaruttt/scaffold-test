@@ -8,9 +8,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.tvisarut.scaffold.filter.JWTRequestFilter;
 import com.tvisarut.scaffold.service.AuthService;
 
 @Configuration
@@ -18,6 +21,9 @@ import com.tvisarut.scaffold.service.AuthService;
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private AuthService authUser;
+	
+	@Autowired
+	private JWTRequestFilter accessTokenRequestFilter;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -26,16 +32,18 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		//detach the login URL from authentication middleware
-		http.csrf().disable().authorizeRequests().antMatchers("/login")
-		.permitAll().anyRequest().authenticated();
+		// detach the login URL from authentication middleware
+		http.csrf().disable().authorizeRequests().antMatchers("/login").permitAll().anyRequest().authenticated().and()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		http.addFilterBefore(accessTokenRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 
 	@Override
 	@Bean
-	public AuthenticationManager authenticationManagerBean() throws Exception{
+	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return NoOpPasswordEncoder.getInstance();

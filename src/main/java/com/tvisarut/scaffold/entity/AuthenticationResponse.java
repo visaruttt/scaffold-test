@@ -3,11 +3,11 @@ package com.tvisarut.scaffold.entity;
 import java.io.Serializable;
 
 public class AuthenticationResponse implements Serializable {
-	private final String jwt; //uneditable variable with final
-	public AuthenticationResponse(String jwt) {
-		this.jwt = jwt;
+	private final String accessToken; //uneditable variable with final
+	public AuthenticationResponse(String accessToken) {
+		this.accessToken = accessToken;
 	}
-    public String getJwt() {
-        return jwt;
+    public String getAccessToken() {
+        return accessToken;
     }
 }

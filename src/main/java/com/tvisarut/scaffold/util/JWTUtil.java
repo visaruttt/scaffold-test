@@ -56,9 +56,4 @@ public class JWTUtil {
 		final String username = extractUsername(token);
 		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
 	}
-	
-//	@Bean
-//	public JWTUtil JWTUtilBean() throws Exception{
-//		return super.JWTUtilBean();
-//	}
 }
