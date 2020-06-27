@@ -47,7 +47,7 @@ public class EmployeeController {
 		return empService.saveEmployee(empRegistering);
 	}
 
-//	 PUT to update the employee
+	// PUT to update the employee
 	@ResponseStatus(HttpStatus.OK)
 	@PutMapping("/employee/{id}")
 	public Employee updateEmployee(@RequestBody Employee empEditing, @PathVariable Long id) {
