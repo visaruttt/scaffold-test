@@ -19,6 +19,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.tvisarut.scaffold.entity.Employee;
+import com.tvisarut.scaffold.exception.ScaffoldServiceException;
 import com.tvisarut.scaffold.repository.EmployeeRepository;
 
 @RunWith(SpringRunner.class)
@@ -83,7 +84,7 @@ class EmployeeServiceTest {
 		
 		Employee existEmployee = new Employee("VisarutUPDATE", "T", "visarutupdate", "P@ssw0rd");
 		when(employeeRepository.findById(mockEmployee.getId())).thenReturn(Optional.of(existEmployee));
-		// Arrange then Act
+		// update the data
 		when(employeeRepository.save(existEmployee)).thenReturn(existEmployee);
 		// Assert
 		assertNotEquals(mockEmployee, service.updateEmployee(mockEmployee.getId(), existEmployee));

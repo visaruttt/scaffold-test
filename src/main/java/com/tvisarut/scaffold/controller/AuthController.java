@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -29,19 +30,26 @@ public class AuthController {
 	
 	@Autowired
 	private JWTUtil jwtTokenUtil;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@ResponseStatus(HttpStatus.OK)
 	@PostMapping("/login")
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
+	public ResponseEntity<?> Login(@RequestBody AuthenticationRequest authenticationRequest)
 			throws Exception {
-
+		System.out.println("username is "+authenticationRequest.getUsername());
+		System.out.println("password is "+authenticationRequest.getPassword());
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-					authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+					authenticationRequest.getUsername(), passwordEncoder.encode(authenticationRequest.getPassword())));
+			System.out.println("trying "+authenticationRequest.getUsername());
 
 		} catch (BadCredentialsException e) {
+			System.out.println("auth incorrect "+e);
 			throw new ScaffoldServiceException("Incorrect username or password", 403);
 		}
+		
 		final UserDetails userDetails = authUser.loadUserByUsername(authenticationRequest.getUsername());
 		final String accessToken = jwtTokenUtil.generateToken(userDetails);
 		return ResponseEntity.ok(new AuthenticationResponse(accessToken));

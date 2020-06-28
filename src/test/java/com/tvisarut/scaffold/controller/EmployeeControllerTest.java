@@ -6,9 +6,4 @@ import org.junit.jupiter.api.Test;
 
 class EmployeeControllerTest {
 	//prepare for integration test
-	@Test
-	void test() {
-		fail("Not yet implemented");
-	}
-
 }
