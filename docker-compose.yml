@@ -1,0 +1,38 @@
+version: '3.3'
+services:
+   db_scaffold:
+    image: mysql:5.7
+    container_name: 'db_scaffold'
+    environment:
+      - MYSQL_HOST=localhost
+      - MYSQL_DATABASE=scaffold
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=P@ssw0rd
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports:
+        - 8090:80
+    environment:
+        - PMA_ARBITRARY=1
+        - PMA_HOST=db_scaffold
+    restart: always
+    depends_on:
+        - db_scaffold
+
+  scaffold-app-server:
+    # Configuration for building the docker image for the backend service
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    restart: always
+    depends_on: 
+      - db_scaffold # This service depends on mysql. Start that first.
+    environment: # Pass environment variables to the service
+      SPRING_DATASOURCE_URL: jdbc:mysql://db_scaffold:3306/scaffold?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: P@ssw0rd

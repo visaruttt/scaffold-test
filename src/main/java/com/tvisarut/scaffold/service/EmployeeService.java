@@ -22,6 +22,7 @@ public class EmployeeService {
 	private PasswordEncoder passwordEncoder;
 
 	public Employee saveEmployee(Employee employee) {
+		System.out.println(employee.getUsername());
 		if (repository.findByUsername(employee.getUsername()) != null) { // username already exist
 			throw new ScaffoldServiceException("username " + employee.getUsername() + " already exist", 400);
 		}
@@ -42,7 +43,7 @@ public class EmployeeService {
 	}
 
 	public String deleteEmployee(Long id) {
-		if (repository.findById(id) != null) {
+		if (repository.findById(id).orElse(null) != null) {
 			repository.deleteById(id);
 			return "employee id " + id + " removed";
 		}

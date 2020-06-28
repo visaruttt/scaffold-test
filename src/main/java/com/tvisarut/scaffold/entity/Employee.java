@@ -11,8 +11,9 @@ import javax.persistence.Table;
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
+	//something went wrong with default constructor
 	private Long id;
-
 	private String firstname;
 	private String lastname;
 	private String username;

@@ -31,9 +31,6 @@ public class AuthController {
 	@Autowired
 	private JWTUtil jwtTokenUtil;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
 	@ResponseStatus(HttpStatus.OK)
 	@PostMapping("/login")
 	public ResponseEntity<?> Login(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
