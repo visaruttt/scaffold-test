@@ -11,6 +11,14 @@ public class Employee{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+	public Employee(String firstname, String lastname, String username, String password) {
+		super();
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.username = username;
+		this.password = password;
+	}
+
 	private String firstname;
 	private String lastname;
 	private String username;

@@ -41,9 +41,9 @@ public class EmployeeService {
 		throw new ScaffoldServiceException("employee id "+id+" not found", 404);
 	}
 	public String deleteEmployee(Long id) {
-		if (getEmployeeById(id) != null) {
+		if (repository.findById(id) != null) {
 			repository.deleteById(id);
-			throw new ScaffoldServiceException("employee id "+id+" removed", 204);
+			return "employee id "+id+" removed";
 		}
 		throw new ScaffoldServiceException("employee id "+id+" not found", 404);
 	}

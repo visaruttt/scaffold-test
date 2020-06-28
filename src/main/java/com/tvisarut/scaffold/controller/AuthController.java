@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tvisarut.scaffold.entity.AuthenticationRequest;
 import com.tvisarut.scaffold.entity.AuthenticationResponse;
+import com.tvisarut.scaffold.exception.ScaffoldServiceException;
 import com.tvisarut.scaffold.service.AuthService;
 import com.tvisarut.scaffold.util.JWTUtil;
 
@@ -39,12 +40,10 @@ public class AuthController {
 					authenticationRequest.getUsername(), authenticationRequest.getPassword()));
 
 		} catch (BadCredentialsException e) {
-			// TODO: handle exception
-			throw new Exception("Incorrect username or password", e);
+			throw new ScaffoldServiceException("Incorrect username or password", 403);
 		}
 		final UserDetails userDetails = authUser.loadUserByUsername(authenticationRequest.getUsername());
 		final String accessToken = jwtTokenUtil.generateToken(userDetails);
 		return ResponseEntity.ok(new AuthenticationResponse(accessToken));
-
 	}
 }
