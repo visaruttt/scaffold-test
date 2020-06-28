@@ -1,4 +1,5 @@
 package com.tvisarut.scaffold.entity;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,23 +8,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "employee")
-public class Employee{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-	public Employee(String firstname, String lastname, String username, String password) {
-		super();
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.username = username;
-		this.password = password;
-	}
+public class Employee {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	private String firstname;
 	private String lastname;
 	private String username;
 	private String password;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -31,6 +25,7 @@ public class Employee{
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getFirstname() {
 		return firstname;
 	}
@@ -46,6 +41,7 @@ public class Employee{
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+
 	public String getUsername() {
 		return username;
 	}

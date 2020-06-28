@@ -24,32 +24,26 @@ public class AuthController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	
+
 	@Autowired
 	private AuthService authUser;
-	
+
 	@Autowired
 	private JWTUtil jwtTokenUtil;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	@ResponseStatus(HttpStatus.OK)
 	@PostMapping("/login")
-	public ResponseEntity<?> Login(@RequestBody AuthenticationRequest authenticationRequest)
-			throws Exception {
-		System.out.println("username is "+authenticationRequest.getUsername());
-		System.out.println("password is "+authenticationRequest.getPassword());
+	public ResponseEntity<?> Login(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-					authenticationRequest.getUsername(), passwordEncoder.encode(authenticationRequest.getPassword())));
-			System.out.println("trying "+authenticationRequest.getUsername());
-
+					authenticationRequest.getUsername(), authenticationRequest.getPassword()));
 		} catch (BadCredentialsException e) {
-			System.out.println("auth incorrect "+e);
 			throw new ScaffoldServiceException("Incorrect username or password", 403);
 		}
-		
+
 		final UserDetails userDetails = authUser.loadUserByUsername(authenticationRequest.getUsername());
 		final String accessToken = jwtTokenUtil.generateToken(userDetails);
 		return ResponseEntity.ok(new AuthenticationResponse(accessToken));

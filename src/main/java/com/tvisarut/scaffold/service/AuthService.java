@@ -20,7 +20,9 @@ public class AuthService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException{
+//		System.out.println(userName);
 		Employee user = repository.findByUsername(userName);
 		return new User(user.getUsername(), user.getPassword(), new ArrayList<>());
+//		return new User("foo","foo",new ArrayList< >());
 	}
 }
