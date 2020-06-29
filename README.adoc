@@ -14,6 +14,7 @@ Scaffold project is a simple spring boot of back-end service that included featu
 * Docker & Docker Compose
 * Mockito for unit test
 * Simple integration test by JUnit5
+* Swagger for API Document
 
 === API Services
 ⚠️Authorization Header is required. 
@@ -59,7 +60,7 @@ Example Response [HTTP 200 OK]:
 ----
 "Authorization" : "Bearer xxxxxxxx.eyJzdWIiOiJ2aXNhcxxxxxxxNDY3NjM3LCJpYXQiOjE1OTM0MzE2Mzd9.xxxxxxxxx"
 ----
-If not you will got the HTTP response 403 Forbidden
+If not you will got the HTTP response 403 Forbidden.
 
 ===== 2. API retrieving all employees
 You can use http request method GET http://{{your.host}}:8888/employee
@@ -87,7 +88,7 @@ Example Response [HTTP 200 OK]:
 ===== 3. API for retrieving one employee by ID
 You can query specific employee by using ID in the parameter GET http://{{your.host}}:8888/employee?id=1
 
-Example Response [HTTP 200 OK, [HTTP 404 NOT FOUND]:
+Example Response [HTTP 200 OK], [HTTP 404 NOT FOUND]:
 ----
 [
     {
@@ -104,7 +105,7 @@ Example Response [HTTP 200 OK, [HTTP 404 NOT FOUND]:
 ===== 4. API for saving one employee
 POST http://{{your.host}}:8888/employee
 
-Example Request [HTTP 201 CREATED, HTTP 400 BAD REQUEST]:
+Example Request [HTTP 201 CREATED], [HTTP 400 BAD REQUEST]:
 ----
 {
     "firstname": "Visarut",
@@ -150,7 +151,17 @@ Example Response [HTTP 200 OK], [HTTP 404 NOT FOUND]:
 ===== 6. API for deleting one employee by ID
 DELETE http://{{your.host}}:8888/employee/{{id}}
 
-Example Response: [HTTP 204 NO CONTENT], [HTTP 404 NOT FOUND]
+Example Response: [HTTP 204 NO CONTENT], [HTTP 404 NOT FOUND]:
+
+===== Swagger-UI url
+http://{{your.host}}/swagger-ui.html
+
+
+==== Author
+Visarut Tirataworawan
+
+👇🏻👇😊 😊 😊 😊  I hope you enjoy the examples in this repository👇🏻👇🏻😊 😊 😊 😊 .
+
 
 == License
 Spring Boot is Open Source software released under the

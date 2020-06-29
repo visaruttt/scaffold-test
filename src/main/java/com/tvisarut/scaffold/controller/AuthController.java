@@ -19,6 +19,9 @@ import com.tvisarut.scaffold.exception.ScaffoldServiceException;
 import com.tvisarut.scaffold.service.AuthService;
 import com.tvisarut.scaffold.util.JWTUtil;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 @RestController
 public class AuthController {
 

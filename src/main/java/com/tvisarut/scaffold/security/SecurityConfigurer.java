@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -21,7 +22,7 @@ import com.tvisarut.scaffold.service.AuthService;
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private AuthService authUser;
-	
+
 	@Autowired
 	private JWTRequestFilter accessTokenRequestFilter;
 
@@ -33,9 +34,20 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// detach the login URL from authentication middleware
-		http.csrf().disable().authorizeRequests().antMatchers("/login").permitAll().anyRequest().authenticated().and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		http.csrf().disable().authorizeRequests()
+				.antMatchers("/login", "/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**","/swagger.json")
+				.permitAll().anyRequest().authenticated().and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(accessTokenRequestFilter, UsernamePasswordAuthenticationFilter.class);
+	}
+	
+	@Override
+	public void configure(WebSecurity web) throws Exception {    
+	    web.ignoring().antMatchers("/v2/api-docs/**");
+	    web.ignoring().antMatchers("/swagger.json");
+	    web.ignoring().antMatchers("/swagger-ui.html");
+	    web.ignoring().antMatchers("/swagger-resources/**");
+	    web.ignoring().antMatchers("/webjars/**");
 	}
 
 	@Override
