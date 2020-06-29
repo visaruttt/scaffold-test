@@ -156,11 +156,16 @@ Example Response: [HTTP 204 NO CONTENT], [HTTP 404 NOT FOUND]:
 ===== Swagger-UI url
 http://{{your.host}}/swagger-ui.html
 
+⚠️️ Authentication header should be in the form as
+
+----
+Bearer xxx.eyJzdWIiOiJ2aXNhcnV0IiwixxxxpYXQiOjE1OTM0NDQ0NjZ9.xxxx
+----
 
 ==== Author
 Visarut Tirataworawan
 
-👇🏻👇😊 😊 😊 😊  I hope you enjoy the examples in this repository👇🏻👇🏻😊 😊 😊 😊 .
+👇👇 😊 😊 😊 😊  I hope you enjoy the examples in this repository👇🏻👇🏻😊 😊 😊 😊 .
 
 
 == License
