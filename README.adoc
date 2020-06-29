@@ -18,7 +18,7 @@ Scaffold project is a simple spring boot of back-end service that included featu
 
 === API Services
 ⚠️Authorization Header is required. 
-
+>> username & password for testing is [visarut,P@ssw0rd] <<
 * API for retrieving all employees.
 * API for retrieving one employee by ID.
 * API for saving one employee.
@@ -31,7 +31,7 @@ Scaffold project is a simple spring boot of back-end service that included featu
 Let's begin with running the following command for start the application:
 ----
 $ mvn package
-$ docker-compose build -t .
+$ docker-compose build
 $ docker-compose up -d
 ----
 
