@@ -1,36 +1,16 @@
-#### Stage 1: Build the application
-FROM adoptopenjdk/openjdk11:jdk-11.0.7_10-alpine as build
+FROM openjdk:8-jdk-alpine
 
-# Set the current working directory inside the image
-WORKDIR /app
+# Set volume point to /tmp
+VOLUME /tmp
 
-# Copy maven executable to the image
-COPY mvnw .
-COPY .mvn .mvn
+# Make port 8080 available to the world outside container
+EXPOSE 8080
 
-# Copy the pom.xml file
-COPY pom.xml .
+# Set application's JAR file
+ARG JAR_FILE=target/scaffold-exercise 0.0.1-SNAPSHOT
 
-# Build all the dependencies in preparation to go offline. 
-# This is a separate step so the dependencies will be cached unless 
-# the pom.xml file has changed.
-RUN ./mvnw dependency:go-offline -B
+# Add the application's JAR file to the container
+ADD ${JAR_FILE} app.jar
 
-# Copy the project source
-COPY src src
-
-# Package the application
-RUN ./mvnw package -DskipTests
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
-
-#### Stage 2: A minimal docker image with command to run the app 
-FROM adoptopenjdk/openjdk11:jdk-11.0.7_10-alpine
-
-ARG DEPENDENCY=/app/target/dependency
-
-# Copy project dependencies from the build stage
-COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
-COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.tvisarut.scaffold.Main"]
+# Run the JAR file
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app.jar"]

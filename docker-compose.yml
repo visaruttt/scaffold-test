@@ -1,6 +1,6 @@
-version: '3.3'
+version: "3.3"
 services:
-   db_scaffold:
+  db_scaffold:
     image: mysql:5.7
     container_name: 'db_scaffold'
     environment:
@@ -28,7 +28,7 @@ services:
     build:
       dockerfile: Dockerfile
     ports:
-      - "8888:8888"
+      - "8888:8000"
     restart: always
     depends_on: 
       - db_scaffold # This service depends on mysql. Start that first.
