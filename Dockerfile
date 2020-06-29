@@ -2,9 +2,6 @@ FROM adoptopenjdk/openjdk11:jdk-11.0.7_10-alpine as build
 # Set volume point to /tmp
 VOLUME /tmp
 
-# Make port 8080 available to the world outside container
-EXPOSE 8080
-
 # Set application's JAR file
 ARG JAR_FILE=target/scaffold-0.0.1-SNAPSHOT.jar
 

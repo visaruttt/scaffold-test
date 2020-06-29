@@ -1,0 +1,132 @@
+= Scaffold Project with Spring Boot image:https://ci.spring.io/api/v1/teams/spring-boot/pipelines/spring-boot-2.4.x/jobs/build/badge["Build Status", link="https://ci.spring.io/teams/spring-boot/pipelines/spring-boot-2.4.x?groups=Build"] image:https://badges.gitter.im/Join Chat.svg["Chat",link="https://gitter.im/spring-projects/spring-boot?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"]
+:docs: https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference
+:github: https://github.com/spring-projects/spring-boot
+
+== Introduction
+Scaffold project is a simple spring boot of back-end service that included features as below;
+
+
+=== Technologies
+* Java Springboot
+* Maven
+* MySQL
+* Liquibase for database control version
+* Docker & Docker Compose
+* Mockito for unit test
+* Simple integration test by JUnit5
+
+=== API Services
+⚠️Authorization Header is required. 
+* API for retrieving all employees.
+* API for retrieving one employee by ID.
+* API for saving one employee.
+* API for modifying one employee.
+* API for deleting one employee by ID.
+
+===== 1. API for authentication
+
+Example Request:
+----
+POST http:://{{your.host}}:8888/login
+
+JSON Body:
+{
+    "username": "yourusername",
+    "password": "yourpassword"
+}
+----
+Example Response [HTTP 200 OK]:
+----
+{
+    "accessToken": "xxxxxxxx.eyJzdWIiOiJ2aXNhcxxxxxxxNDY3NjM3LCJpYXQiOjE1OTM0MzE2Mzd9.xxxxxxxxx"
+}
+----
+===== 2. API retrieving all employees
+You can use http request method GET http://{{your.host}}:8888/employee
+Example Response [HTTP 200 OK]:
+
+----
+[
+    {
+        "id": 1,
+        "firstname": "visarut",
+        "lastname": "tirataworawan",
+        "username": "visarut",
+        "password": "$2a$10$ElOvQaBRp3xxxxx"
+    },
+    {
+        "id": 2,
+        "firstname": "visarut2",
+        "lastname": "tirataworawan",
+        "username": "visarut2",
+        "password": "$2a$10$1Io0TWdzzRVMBhiu8.xxxxxx"
+    }
+]
+----
+
+===== 3. API for retrieving one employee by ID
+You can query specific employee by using ID in the parameter GET http://{{your.host}}:8888/employee?id=1
+Example Response [HTTP 200 OK]:
+----
+[
+    {
+        "id": 1,
+        "firstname": "visarut",
+        "lastname": "tirataworawan",
+        "username": "visarut",
+        "password": "$2a$10$ElOvQaBRp3zyAe4iWSHeTey5xxxxxxxk6"
+    }
+]
+----
+
+
+===== 4. API for saving one employee
+POST http://{{your.host}}:8888/employee
+Example Request [HTTP 201 CREATED]:
+----
+{
+    "firstname": "Visarut",
+    "lastname": "Tirataworowan",
+    "username": "visarut",
+    "password": "P@ss...."
+}
+----
+
+Example Response:
+----
+{
+    "id": 1,
+    "firstname": "Visarut",
+    "lastname": "Tirataworowan",
+    "username": "visarut",
+    "password": "$2a$10$1Io0TWdzzRVMBhiu8.xxxxxx"
+}
+----
+
+===== 5. API for modifying one employee
+PUT http://{{your.host}}:8888/employee/{{id}}
+Example Request:
+----
+{
+    "firstname": "visarut04",
+    "lastname": "tt"
+}
+----
+Example Response:
+----
+{
+    "id": 1,
+    "firstname": "visarut04",
+    "lastname": "tt",
+    "username": "visarut",
+    "password": "$2a$10$ElOvQaBRp3zyAe4xxxx6"
+}
+----
+
+===== 6. API for deleting one employee by ID
+DELETE http://{{your.host}}:8888/employee/{{id}}
+Example Response: [HTTP 204 NO CONTENT]
+
+== License
+Spring Boot is Open Source software released under the
+https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 license].
