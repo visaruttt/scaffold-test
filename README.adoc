@@ -24,7 +24,18 @@ Scaffold project is a simple spring boot of back-end service that included featu
 * API for modifying one employee.
 * API for deleting one employee by ID.
 
+
+==== Installation
+⚠️ You need to install a Maven, Docker and Docker-Compose.
+Let's begin with running the following command for start the application:
+----
+$ mvn package
+$ docker-compose build -t .
+$ docker-compose up -d
+----
+
 ===== 1. API for authentication
+
 
 Example Request:
 ----
@@ -36,16 +47,24 @@ JSON Body:
     "password": "yourpassword"
 }
 ----
+
 Example Response [HTTP 200 OK]:
 ----
 {
     "accessToken": "xxxxxxxx.eyJzdWIiOiJ2aXNhcxxxxxxxNDY3NjM3LCJpYXQiOjE1OTM0MzE2Mzd9.xxxxxxxxx"
 }
 ----
+
+⚠️️APIs should contain header as following:
+----
+"Authorization" : "Bearer xxxxxxxx.eyJzdWIiOiJ2aXNhcxxxxxxxNDY3NjM3LCJpYXQiOjE1OTM0MzE2Mzd9.xxxxxxxxx"
+----
+If not you will got the HTTP response 403 Forbidden
+
 ===== 2. API retrieving all employees
 You can use http request method GET http://{{your.host}}:8888/employee
-Example Response [HTTP 200 OK]:
 
+Example Response [HTTP 200 OK]:
 ----
 [
     {
@@ -67,7 +86,8 @@ Example Response [HTTP 200 OK]:
 
 ===== 3. API for retrieving one employee by ID
 You can query specific employee by using ID in the parameter GET http://{{your.host}}:8888/employee?id=1
-Example Response [HTTP 200 OK]:
+
+Example Response [HTTP 200 OK, [HTTP 404 NOT FOUND]:
 ----
 [
     {
@@ -83,7 +103,8 @@ Example Response [HTTP 200 OK]:
 
 ===== 4. API for saving one employee
 POST http://{{your.host}}:8888/employee
-Example Request [HTTP 201 CREATED]:
+
+Example Request [HTTP 201 CREATED, HTTP 400 BAD REQUEST]:
 ----
 {
     "firstname": "Visarut",
@@ -106,6 +127,7 @@ Example Response:
 
 ===== 5. API for modifying one employee
 PUT http://{{your.host}}:8888/employee/{{id}}
+
 Example Request:
 ----
 {
@@ -113,7 +135,8 @@ Example Request:
     "lastname": "tt"
 }
 ----
-Example Response:
+
+Example Response [HTTP 200 OK], [HTTP 404 NOT FOUND]:
 ----
 {
     "id": 1,
@@ -126,7 +149,8 @@ Example Response:
 
 ===== 6. API for deleting one employee by ID
 DELETE http://{{your.host}}:8888/employee/{{id}}
-Example Response: [HTTP 204 NO CONTENT]
+
+Example Response: [HTTP 204 NO CONTENT], [HTTP 404 NOT FOUND]
 
 == License
 Spring Boot is Open Source software released under the
