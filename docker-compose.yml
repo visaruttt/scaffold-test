@@ -26,6 +26,7 @@ services:
   scaffold-app-server:
     # Configuration for building the docker image for the backend service
     build:
+      context: .
       dockerfile: Dockerfile
     ports:
       - "8888:8000"
